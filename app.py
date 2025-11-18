@@ -36,7 +36,48 @@ BADGES = {
     "python_beginner": {"name": "Новичок Python", "description": "Выполнил первое задание по Python", "icon": "🐍"},
     "active_learner": {"name": "Активный ученик", "description": "Выполнил 5 заданий", "icon": "⭐"},
     "team_player": {"name": "Командный игрок", "description": "Получил фидбэк от коллеги", "icon": "👥"},
-    "ml_master": {"name": "Мастер ML", "description": "Освоил машинное обучение", "icon": "🤖"}
+    "ml_master": {"name": "Мастер ML", "description": "Освоил машинное обучение", "icon": "🤖"},
+    "quest_master": {"name": "Мастер квестов", "description": "Выполнил 10 заданий", "icon": "🏆"},
+    "skill_collector": {"name": "Коллекционер навыков", "description": "Изучил 5 различных навыков", "icon": "📚"}
+}
+
+# Предопределенные цели для выбора
+CAREER_GOALS = {
+    "short_term": [
+        {"id": 1, "name": "Освоить базовый синтаксис Python", "category": "Программирование", "priority": "high"},
+        {"id": 2, "name": "Изучить основы SQL", "category": "Базы данных", "priority": "medium"},
+        {"id": 3, "name": "Понять основные принципы ООП", "category": "Программирование", "priority": "high"},
+        {"id": 4, "name": "Научиться работать с Git", "category": "Инструменты", "priority": "medium"},
+        {"id": 5, "name": "Освоить основы алгоритмов", "category": "Программирование", "priority": "medium"}
+    ],
+    "medium_term": [
+        {"id": 6, "name": "Разработать собственный проект", "category": "Практика", "priority": "high"},
+        {"id": 7, "name": "Изучить фреймворк Django/Flask", "category": "Программирование", "priority": "medium"},
+        {"id": 8, "name": "Освоить основы машинного обучения", "category": "Data Science", "priority": "medium"},
+        {"id": 9, "name": "Научиться работать с Docker", "category": "Инфраструктура", "priority": "low"},
+        {"id": 10, "name": "Изучить основы веб-разработки", "category": "Web", "priority": "medium"}
+    ],
+    "long_term": [
+        {"id": 11, "name": "Стать Middle-разработчиком", "category": "Карьера", "priority": "high"},
+        {"id": 12, "name": "Участвовать в опенсорс проекте", "category": "Практика", "priority": "medium"},
+        {"id": 13, "name": "Подготовиться к техническому собеседованию", "category": "Карьера", "priority": "high"},
+        {"id": 14, "name": "Освоить продвинутые алгоритмы", "category": "Программирование", "priority": "medium"},
+        {"id": 15, "name": "Изучить архитектуру приложений", "category": "Архитектура", "priority": "medium"}
+    ]
+}
+
+# Предопределенные ответы ИИ-помощника
+AI_RESPONSES = {
+    "привет": "Привет! Я ваш ИИ-помощник по карьере. Чем могу помочь в вашем профессиональном развитии?",
+    "как дела": "Всё отлично! Готов помочь вам с карьерными вопросами и развитием навыков.",
+    "что ты умеешь": "Я могу помочь с выбором карьерного пути, подобрать задания для развития навыков, отслеживать прогресс и ставить цели.",
+    "карьера": "Проанализировав ваш профиль, я вижу потенциал в области Data Science. Рекомендую начать с основ Python и статистики.",
+    "навыки": "Ваши текущие навыки: Python (65%), SQL (40%). Для выбранного пути рекомендую изучить машинное обучение и визуализацию данных.",
+    "план": "Ваш карьерный план:\n1. Освоить Python (2 недели)\n2. Изучить SQL (3 недели)\n3. Основы ML (4 недели)\n4. Реальные проекты (2 месяца)",
+    "квесты": "Сегодня доступны квесты по Python, Agile и командной работе. Выберите то, что больше соответствует вашим целям!",
+    "статистика": "Проверьте раздел 'Личный кабинет' для просмотра вашей подробной статистики и прогресса по навыкам.",
+    "цели": "В личном кабинете вы можете выбрать и отслеживать свои карьерные цели. Я помогу подобрать подходящие цели для вашего развития.",
+    "default": "Я здесь, чтобы помочь с вашим карьерным развитием. Спросите о навыках, карьерном плане, доступных заданиях или рекомендациях."
 }
 
 
@@ -49,28 +90,67 @@ def get_user_data():
             'badges': [],
             'completed_quests': [],
             'career_path': None,
-            'skills_progress': {},
-            'join_date': datetime.now().strftime("%d.%m.%Y")
+            'skills_progress': {
+                "Python": 65,
+                "SQL": 40,
+                "Машинное обучение": 20,
+                "Статистика": 30,
+                "Data Visualization": 25,
+                "JavaScript": 10,
+                "React": 5,
+                "HTML/CSS": 15,
+                "TypeScript": 0,
+                "UI/UX": 10,
+                "Управление проектами": 35,
+                "Коммуникация": 60,
+                "Agile": 45,
+                "Презентации": 50,
+                "Лидерство": 40
+            },
+            'join_date': datetime.now().strftime("%d.%m.%Y"),
+            'total_quests_completed': 0,
+            'total_xp_earned': 0,
+            'total_coins_earned': 0,
+            'quests_by_type': {
+                'education': 0,
+                'reading': 0,
+                'social': 0,
+                'practice': 0
+            },
+            'last_activity': datetime.now().strftime("%d.%m.%Y %H:%M"),
+            'learning_streak': 1,
+            'career_goals': {
+                'short_term': [],
+                'medium_term': [],
+                'long_term': []
+            }
         }
     return session['user_data']
 
 
+def update_skills_progress(user_data, skill, xp_earned):
+    """Обновление прогресса навыков на основе полученного опыта"""
+    if skill in user_data['skills_progress']:
+        progress_increase = min(xp_earned / 10, 10)
+        user_data['skills_progress'][skill] = min(
+            user_data['skills_progress'][skill] + progress_increase,
+            100
+        )
+    else:
+        user_data['skills_progress'][skill] = min(xp_earned / 5, 20)
+
+
 def ai_assistant_response(message):
-    """Упрощенный ИИ-помощник"""
+    """Упрощенный ИИ-помощник с предопределенными ответами"""
     message_lower = message.lower()
 
-    if any(word in message_lower for word in ['привет', 'здравств', 'hello']):
-        return "Привет! Я ваш ИИ-помощник по карьере. Чем могу помочь в вашем профессиональном развитии?"
-    elif any(word in message_lower for word in ['карьер', 'развити', 'рост']):
-        return "Проанализировав ваш профиль, я вижу потенциал в области Data Science. Рекомендую начать с основ Python и статистики."
-    elif any(word in message_lower for word in ['навык', 'умени']):
-        return "Ваши текущие навыки: Python (65%), SQL (40%). Для выбранного пути рекомендую изучить машинное обучение и визуализацию данных."
-    elif any(word in message_lower for word in ['план', 'цел']):
-        return "Ваш карьерный план:\n1. Освоить Python (2 недели)\n2. Изучить SQL (3 недели)\n3. Основы ML (4 недели)\n4. Реальные проекты (2 месяца)"
-    elif any(word in message_lower for word in ['квест', 'задани']):
-        return "Сегодня доступны квесты по Python, Agile и командной работе. Выберите то, что больше соответствует вашим целям!"
-    else:
-        return "Я здесь, чтобы помочь с вашим карьерным развитием. Спросите о навыках, карьерном плане, доступных заданиях или рекомендациях."
+    # Поиск ключевых слов в сообщении
+    for key, response in AI_RESPONSES.items():
+        if key in message_lower and key != "default":
+            return response
+
+    # Если ключевые слова не найдены, возвращаем ответ по умолчанию
+    return AI_RESPONSES["default"]
 
 
 @app.route('/')
@@ -81,7 +161,7 @@ def index():
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Карьера на автопилоте | Холдинг Т1</title>
+        <title>Внутренний рост | Холдинг Т1</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
         <style>
             :root {
@@ -95,6 +175,7 @@ def index():
                 --white: #ffffff;
                 --success: #27ae60;
                 --warning: #f39c12;
+                --danger: #e74c3c;
             }
 
             * {
@@ -378,6 +459,30 @@ def index():
                 cursor: not-allowed;
             }
 
+            .btn-success {
+                background: var(--success);
+            }
+
+            .btn-success:hover {
+                background: #219653;
+            }
+
+            .btn-warning {
+                background: var(--warning);
+            }
+
+            .btn-warning:hover {
+                background: #e67e22;
+            }
+
+            .btn-danger {
+                background: var(--danger);
+            }
+
+            .btn-danger:hover {
+                background: #c0392b;
+            }
+
             /* Чат с ИИ */
             .chat-container {
                 background: var(--white);
@@ -543,6 +648,301 @@ def index():
                 opacity: 0.5;
             }
 
+            /* Личный кабинет */
+            .profile-header {
+                display: flex;
+                align-items: center;
+                margin-bottom: 30px;
+                background: var(--white);
+                border-radius: 12px;
+                padding: 25px;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            }
+
+            .profile-avatar {
+                width: 100px;
+                height: 100px;
+                border-radius: 50%;
+                background: var(--primary-blue);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-right: 25px;
+                font-size: 40px;
+                color: white;
+            }
+
+            .profile-info h3 {
+                font-size: 24px;
+                margin-bottom: 5px;
+                color: var(--dark-blue);
+            }
+
+            .profile-info p {
+                color: var(--text-light);
+                margin-bottom: 10px;
+            }
+
+            .stats-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 20px;
+                margin-bottom: 30px;
+            }
+
+            .stat-card {
+                background: var(--white);
+                border-radius: 12px;
+                padding: 20px;
+                text-align: center;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            }
+
+            .stat-card i {
+                font-size: 30px;
+                color: var(--primary-blue);
+                margin-bottom: 15px;
+            }
+
+            .stat-card-value {
+                font-size: 28px;
+                font-weight: bold;
+                margin-bottom: 5px;
+                color: var(--dark-blue);
+            }
+
+            .stat-card-label {
+                color: var(--text-light);
+                font-size: 14px;
+            }
+
+            .skills-progress {
+                background: var(--white);
+                border-radius: 12px;
+                padding: 25px;
+                margin-bottom: 30px;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            }
+
+            .skill-item {
+                margin-bottom: 15px;
+            }
+
+            .skill-header {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 8px;
+            }
+
+            .skill-name {
+                font-weight: 500;
+            }
+
+            .skill-percent {
+                color: var(--text-light);
+            }
+
+            .skill-progress-bar {
+                height: 10px;
+                background: #f0f0f0;
+                border-radius: 5px;
+                overflow: hidden;
+            }
+
+            .skill-progress-fill {
+                height: 100%;
+                background: var(--primary-blue);
+                border-radius: 5px;
+                transition: width 0.5s ease;
+            }
+
+            .quests-stats {
+                background: var(--white);
+                border-radius: 12px;
+                padding: 25px;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+                margin-bottom: 30px;
+            }
+
+            .quest-type-stats {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 15px;
+                margin-top: 15px;
+            }
+
+            .quest-type-stat {
+                text-align: center;
+                padding: 15px;
+                background: var(--very-light-blue);
+                border-radius: 8px;
+            }
+
+            .quest-type-stat i {
+                font-size: 24px;
+                color: var(--primary-blue);
+                margin-bottom: 10px;
+            }
+
+            .quest-type-count {
+                font-size: 20px;
+                font-weight: bold;
+                color: var(--dark-blue);
+            }
+
+            .quest-type-label {
+                font-size: 14px;
+                color: var(--text-light);
+            }
+
+            /* Цели */
+            .goals-section {
+                background: var(--white);
+                border-radius: 12px;
+                padding: 25px;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+                margin-bottom: 30px;
+            }
+
+            .goals-tabs {
+                display: flex;
+                margin-bottom: 20px;
+                border-bottom: 1px solid #eee;
+            }
+
+            .goal-tab {
+                padding: 10px 20px;
+                cursor: pointer;
+                border-bottom: 3px solid transparent;
+                transition: all 0.3s ease;
+            }
+
+            .goal-tab.active {
+                border-bottom-color: var(--primary-blue);
+                color: var(--primary-blue);
+                font-weight: 500;
+            }
+
+            .goal-tab:hover {
+                color: var(--primary-blue);
+            }
+
+            .goals-list {
+                display: none;
+            }
+
+            .goals-list.active {
+                display: block;
+            }
+
+            .goal-item {
+                display: flex;
+                align-items: center;
+                padding: 15px;
+                border: 1px solid #eee;
+                border-radius: 8px;
+                margin-bottom: 10px;
+                transition: all 0.3s ease;
+            }
+
+            .goal-item:hover {
+                border-color: var(--primary-blue);
+                background: var(--very-light-blue);
+            }
+
+            .goal-item.completed {
+                background: #f0fff4;
+                border-color: var(--success);
+            }
+
+            .goal-checkbox {
+                margin-right: 15px;
+                width: 20px;
+                height: 20px;
+                cursor: pointer;
+            }
+
+            .goal-content {
+                flex-grow: 1;
+            }
+
+            .goal-name {
+                font-weight: 500;
+                margin-bottom: 5px;
+            }
+
+            .goal-meta {
+                display: flex;
+                font-size: 14px;
+                color: var(--text-light);
+            }
+
+            .goal-category, .goal-priority {
+                margin-right: 15px;
+                display: flex;
+                align-items: center;
+            }
+
+            .goal-priority.high::before {
+                content: "";
+                display: inline-block;
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background: var(--danger);
+                margin-right: 5px;
+            }
+
+            .goal-priority.medium::before {
+                content: "";
+                display: inline-block;
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background: var(--warning);
+                margin-right: 5px;
+            }
+
+            .goal-priority.low::before {
+                content: "";
+                display: inline-block;
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background: var(--success);
+                margin-right: 5px;
+            }
+
+            .goal-actions {
+                display: flex;
+                gap: 10px;
+            }
+
+            .available-goals {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                gap: 15px;
+            }
+
+            .available-goal {
+                background: var(--white);
+                border: 1px solid #eee;
+                border-radius: 8px;
+                padding: 15px;
+                transition: all 0.3s ease;
+                cursor: pointer;
+            }
+
+            .available-goal:hover {
+                border-color: var(--primary-blue);
+                transform: translateY(-2px);
+            }
+
+            .available-goal.selected {
+                border-color: var(--primary-blue);
+                background: var(--very-light-blue);
+            }
+
             /* Адаптивность */
             @media (max-width: 768px) {
                 .app-container {
@@ -555,6 +955,23 @@ def index():
                 .cards-container {
                     grid-template-columns: 1fr;
                 }
+                .profile-header {
+                    flex-direction: column;
+                    text-align: center;
+                }
+                .profile-avatar {
+                    margin-right: 0;
+                    margin-bottom: 15px;
+                }
+                .goal-item {
+                    flex-direction: column;
+                    align-items: flex-start;
+                }
+                .goal-actions {
+                    margin-top: 10px;
+                    width: 100%;
+                    justify-content: flex-end;
+                }
             }
         </style>
     </head>
@@ -564,7 +981,7 @@ def index():
             <div class="sidebar">
                 <div class="logo">
                     <i class="fas fa-rocket"></i>
-                    <h1>Карьера на автопилоте</h1>
+                    <h1>Внутренний рост</h1>
                 </div>
 
                 <div class="user-profile">
@@ -609,6 +1026,10 @@ def index():
                     <div class="nav-item" data-section="achievements">
                         <i class="fas fa-trophy"></i>
                         <span>Достижения</span>
+                    </div>
+                    <div class="nav-item" data-section="profile">
+                        <i class="fas fa-user-circle"></i>
+                        <span>Личный кабинет</span>
                     </div>
                 </div>
 
@@ -736,6 +1157,95 @@ def index():
                         Загрузка бейджей...
                     </div>
                 </div>
+
+                <!-- Личный кабинет -->
+                <div class="content-section" id="profile">
+                    <div class="section-title">
+                        <i class="fas fa-user-circle"></i>
+                        <span>Личный кабинет</span>
+                    </div>
+
+                    <div class="profile-header">
+                        <div class="profile-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="profile-info">
+                            <h3 id="profile-username">Сотрудник Холдинг Т1</h3>
+                            <p id="profile-career-path">Карьерный путь: Не выбран</p>
+                            <p id="profile-join-date">В команде с: Загрузка...</p>
+                            <p id="profile-last-activity">Последняя активность: Загрузка...</p>
+                        </div>
+                    </div>
+
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <i class="fas fa-chart-line"></i>
+                            <div class="stat-card-value" id="stat-level">1</div>
+                            <div class="stat-card-label">Текущий уровень</div>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-star"></i>
+                            <div class="stat-card-value" id="stat-total-xp">0</div>
+                            <div class="stat-card-label">Всего опыта</div>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-coins"></i>
+                            <div class="stat-card-value" id="stat-total-coins">0</div>
+                            <div class="stat-card-label">Всего монет</div>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-tasks"></i>
+                            <div class="stat-card-value" id="stat-total-quests">0</div>
+                            <div class="stat-card-label">Выполнено квестов</div>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-trophy"></i>
+                            <div class="stat-card-value" id="stat-badges">0</div>
+                            <div class="stat-card-label">Получено бейджей</div>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-fire"></i>
+                            <div class="stat-card-value" id="stat-streak">1</div>
+                            <div class="stat-card-label">Дней подряд</div>
+                        </div>
+                    </div>
+
+                    <div class="skills-progress">
+                        <h3 style="margin-bottom: 20px; color: var(--dark-blue);">Прогресс по навыкам</h3>
+                        <div id="skills-progress-list">
+                            Загрузка навыков...
+                        </div>
+                    </div>
+
+                    <div class="quests-stats">
+                        <h3 style="margin-bottom: 20px; color: var(--dark-blue);">Статистика по квестам</h3>
+                        <div class="quest-type-stats" id="quests-type-stats">
+                            <!-- Будет заполнено через JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Новый раздел: Мои цели -->
+                    <div class="goals-section">
+                        <h3 style="margin-bottom: 20px; color: var(--dark-blue);">Мои карьерные цели</h3>
+
+                        <div class="goals-tabs">
+                            <div class="goal-tab active" data-tab="my-goals">Мои цели</div>
+                            <div class="goal-tab" data-tab="available-goals">Доступные цели</div>
+                        </div>
+
+                        <div class="goals-list active" id="my-goals-list">
+                            <div id="my-goals-content">
+                                Загрузка ваших целей...
+                            </div>
+                        </div>
+
+                        <div class="goals-list" id="available-goals-list">
+                            <div class="available-goals" id="available-goals-content">
+                                Загрузка доступных целей...
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -780,6 +1290,8 @@ def index():
                 updateCareerPaths();
                 updateQuests();
                 updateBadges();
+                updateProfile();
+                updateGoals();
             }
 
             // Обновление главной панели
@@ -816,6 +1328,337 @@ def index():
                     `;
                 }
             }
+
+            // Обновление личного кабинета
+            function updateProfile() {
+                // Основная информация
+                document.getElementById('profile-username').textContent = 'Сотрудник Холдинг Т1';
+                document.getElementById('profile-career-path').textContent = 
+                    userData.career_path ? `Карьерный путь: ${userData.career_path}` : 'Карьерный путь: Не выбран';
+                document.getElementById('profile-join-date').textContent = `В команде с: ${userData.join_date}`;
+                document.getElementById('profile-last-activity').textContent = `Последняя активность: ${userData.last_activity}`;
+
+                // Статистика
+                document.getElementById('stat-level').textContent = userData.level;
+                document.getElementById('stat-total-xp').textContent = userData.total_xp_earned || userData.xp;
+                document.getElementById('stat-total-coins').textContent = userData.total_coins_earned || userData.coins;
+                document.getElementById('stat-total-quests').textContent = userData.total_quests_completed || userData.completed_quests.length;
+                document.getElementById('stat-badges').textContent = userData.badges.length;
+                document.getElementById('stat-streak').textContent = userData.learning_streak || 1;
+
+                // Прогресс по навыкам
+                if (userData.skills_progress) {
+                    let skillsHTML = '';
+                    for (const [skill, progress] of Object.entries(userData.skills_progress)) {
+                        skillsHTML += `
+                            <div class="skill-item">
+                                <div class="skill-header">
+                                    <span class="skill-name">${skill}</span>
+                                    <span class="skill-percent">${Math.round(progress)}%</span>
+                                </div>
+                                <div class="skill-progress-bar">
+                                    <div class="skill-progress-fill" style="width: ${progress}%"></div>
+                                </div>
+                            </div>
+                        `;
+                    }
+                    document.getElementById('skills-progress-list').innerHTML = skillsHTML;
+                }
+
+                // Статистика по типам квестов
+                if (userData.quests_by_type) {
+                    const questTypes = {
+                        'education': { icon: 'fas fa-graduation-cap', label: 'Обучение' },
+                        'reading': { icon: 'fas fa-book', label: 'Чтение' },
+                        'social': { icon: 'fas fa-users', label: 'Социальные' },
+                        'practice': { icon: 'fas fa-laptop-code', label: 'Практика' }
+                    };
+
+                    let questsStatsHTML = '';
+                    for (const [type, data] of Object.entries(questTypes)) {
+                        const count = userData.quests_by_type[type] || 0;
+                        questsStatsHTML += `
+                            <div class="quest-type-stat">
+                                <i class="${data.icon}"></i>
+                                <div class="quest-type-count">${count}</div>
+                                <div class="quest-type-label">${data.label}</div>
+                            </div>
+                        `;
+                    }
+                    document.getElementById('quests-type-stats').innerHTML = questsStatsHTML;
+                }
+            }
+
+            // Обновление целей
+            async function updateGoals() {
+                try {
+                    // Загрузка доступных целей
+                    const response = await fetch('/api/career_goals');
+                    const availableGoals = await response.json();
+
+                    // Отображение моих целей
+                    displayMyGoals();
+
+                    // Отображение доступных целей
+                    displayAvailableGoals(availableGoals);
+
+                } catch (error) {
+                    console.error('Ошибка загрузки целей:', error);
+                }
+            }
+
+            // Отображение моих целей
+            function displayMyGoals() {
+                const myGoals = userData.career_goals || {
+                    'short_term': [],
+                    'medium_term': [],
+                    'long_term': []
+                };
+
+                let html = '';
+
+                // Краткосрочные цели
+                if (myGoals.short_term && myGoals.short_term.length > 0) {
+                    html += `<h4 style="margin: 15px 0 10px 0; color: var(--dark-blue);">Краткосрочные цели</h4>`;
+                    myGoals.short_term.forEach(goal => {
+                        html += createGoalItem(goal, 'short_term');
+                    });
+                }
+
+                // Среднесрочные цели
+                if (myGoals.medium_term && myGoals.medium_term.length > 0) {
+                    html += `<h4 style="margin: 15px 0 10px 0; color: var(--dark-blue);">Среднесрочные цели</h4>`;
+                    myGoals.medium_term.forEach(goal => {
+                        html += createGoalItem(goal, 'medium_term');
+                    });
+                }
+
+                // Долгосрочные цели
+                if (myGoals.long_term && myGoals.long_term.length > 0) {
+                    html += `<h4 style="margin: 15px 0 10px 0; color: var(--dark-blue);">Долгосрочные цели</h4>`;
+                    myGoals.long_term.forEach(goal => {
+                        html += createGoalItem(goal, 'long_term');
+                    });
+                }
+
+                if (!html) {
+                    html = '<p>У вас пока нет выбранных целей. Перейдите во вкладку "Доступные цели", чтобы добавить цели для отслеживания.</p>';
+                }
+
+                document.getElementById('my-goals-content').innerHTML = html;
+
+                // Добавляем обработчики событий для чекбоксов и кнопок удаления
+                addGoalEventListeners();
+            }
+
+            // Создание элемента цели
+            function createGoalItem(goal, term) {
+                const completedClass = goal.completed ? 'completed' : '';
+                return `
+                    <div class="goal-item ${completedClass}" data-id="${goal.id}" data-term="${term}">
+                        <input type="checkbox" class="goal-checkbox" ${goal.completed ? 'checked' : ''}>
+                        <div class="goal-content">
+                            <div class="goal-name">${goal.name}</div>
+                            <div class="goal-meta">
+                                <span class="goal-category">${goal.category}</span>
+                                <span class="goal-priority ${goal.priority}">${getPriorityLabel(goal.priority)}</span>
+                            </div>
+                        </div>
+                        <div class="goal-actions">
+                            <button class="btn btn-danger remove-goal">Удалить</button>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Получение текстового представления приоритета
+            function getPriorityLabel(priority) {
+                const labels = {
+                    'high': 'Высокий',
+                    'medium': 'Средний',
+                    'low': 'Низкий'
+                };
+                return labels[priority] || priority;
+            }
+
+            // Отображение доступных целей
+            function displayAvailableGoals(availableGoals) {
+                let html = '';
+
+                // Краткосрочные цели
+                html += `<h4 style="margin: 15px 0 10px 0; color: var(--dark-blue);">Краткосрочные цели</h4>`;
+                availableGoals.short_term.forEach(goal => {
+                    html += createAvailableGoalItem(goal, 'short_term');
+                });
+
+                // Среднесрочные цели
+                html += `<h4 style="margin: 15px 0 10px 0; color: var(--dark-blue);">Среднесрочные цели</h4>`;
+                availableGoals.medium_term.forEach(goal => {
+                    html += createAvailableGoalItem(goal, 'medium_term');
+                });
+
+                // Долгосрочные цели
+                html += `<h4 style="margin: 15px 0 10px 0; color: var(--dark-blue);">Долгосрочные цели</h4>`;
+                availableGoals.long_term.forEach(goal => {
+                    html += createAvailableGoalItem(goal, 'long_term');
+                });
+
+                document.getElementById('available-goals-content').innerHTML = html;
+
+                // Добавляем обработчики событий для выбора целей
+                addAvailableGoalEventListeners();
+            }
+
+            // Создание элемента доступной цели
+            function createAvailableGoalItem(goal, term) {
+                // Проверяем, добавлена ли уже цель
+                const myGoals = userData.career_goals || {
+                    'short_term': [],
+                    'medium_term': [],
+                    'long_term': []
+                };
+
+                const isAdded = myGoals[term]?.some(g => g.id === goal.id);
+                const selectedClass = isAdded ? 'selected' : '';
+                const buttonText = isAdded ? 'Добавлено' : 'Добавить';
+                const buttonDisabled = isAdded ? 'disabled' : '';
+
+                return `
+                    <div class="available-goal ${selectedClass}" data-id="${goal.id}" data-term="${term}">
+                        <div class="goal-name">${goal.name}</div>
+                        <div class="goal-meta">
+                            <span class="goal-category">${goal.category}</span>
+                            <span class="goal-priority ${goal.priority}">${getPriorityLabel(goal.priority)}</span>
+                        </div>
+                        <button class="btn add-goal" ${buttonDisabled} style="margin-top: 10px;">${buttonText}</button>
+                    </div>
+                `;
+            }
+
+            // Добавление обработчиков событий для целей
+            function addGoalEventListeners() {
+                // Обработчики для чекбоксов
+                document.querySelectorAll('.goal-checkbox').forEach(checkbox => {
+                    checkbox.addEventListener('change', async (e) => {
+                        const goalItem = e.target.closest('.goal-item');
+                        const goalId = parseInt(goalItem.getAttribute('data-id'));
+                        const term = goalItem.getAttribute('data-term');
+                        const completed = e.target.checked;
+
+                        try {
+                            const response = await fetch('/api/toggle_goal', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({
+                                    goal_id: goalId,
+                                    term: term,
+                                    completed: completed
+                                })
+                            });
+
+                            if (response.ok) {
+                                const result = await response.json();
+                                if (result.success) {
+                                    userData = result.user_data;
+                                    updateGoals();
+                                }
+                            }
+                        } catch (error) {
+                            console.error('Ошибка обновления цели:', error);
+                        }
+                    });
+                });
+
+                // Обработчики для кнопок удаления
+                document.querySelectorAll('.remove-goal').forEach(button => {
+                    button.addEventListener('click', async (e) => {
+                        const goalItem = e.target.closest('.goal-item');
+                        const goalId = parseInt(goalItem.getAttribute('data-id'));
+                        const term = goalItem.getAttribute('data-term');
+
+                        try {
+                            const response = await fetch('/api/remove_goal', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({
+                                    goal_id: goalId,
+                                    term: term
+                                })
+                            });
+
+                            if (response.ok) {
+                                const result = await response.json();
+                                if (result.success) {
+                                    userData = result.user_data;
+                                    updateGoals();
+                                }
+                            }
+                        } catch (error) {
+                            console.error('Ошибка удаления цели:', error);
+                        }
+                    });
+                });
+            }
+
+            // Добавление обработчиков событий для доступных целей
+            function addAvailableGoalEventListeners() {
+                document.querySelectorAll('.add-goal').forEach(button => {
+                    button.addEventListener('click', async (e) => {
+                        const goalItem = e.target.closest('.available-goal');
+                        const goalId = parseInt(goalItem.getAttribute('data-id'));
+                        const term = goalItem.getAttribute('data-term');
+
+                        try {
+                            const response = await fetch('/api/add_goal', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({
+                                    goal_id: goalId,
+                                    term: term
+                                })
+                            });
+
+                            if (response.ok) {
+                                const result = await response.json();
+                                if (result.success) {
+                                    userData = result.user_data;
+                                    updateGoals();
+                                }
+                            }
+                        } catch (error) {
+                            console.error('Ошибка добавления цели:', error);
+                        }
+                    });
+                });
+            }
+
+            // Переключение вкладок целей
+            document.querySelectorAll('.goal-tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Убрать активный класс у всех вкладок
+                    document.querySelectorAll('.goal-tab').forEach(t => {
+                        t.classList.remove('active');
+                    });
+
+                    // Добавить активный класс к текущей вкладке
+                    tab.classList.add('active');
+
+                    // Скрыть все списки целей
+                    document.querySelectorAll('.goals-list').forEach(list => {
+                        list.classList.remove('active');
+                    });
+
+                    // Показать выбранный список целей
+                    const tabId = tab.getAttribute('data-tab');
+                    document.getElementById(`${tabId}-list`).classList.add('active');
+                });
+            });
 
             // Загрузка и отображение карьерных путей
             async function updateCareerPaths() {
@@ -939,15 +1782,8 @@ def index():
 
             // Обновление бейджей
             function updateBadges() {
-                const badges = {
-                    "python_beginner": {"name": "Новичок Python", "description": "Выполнил первое задание по Python", "icon": "🐍"},
-                    "active_learner": {"name": "Активный ученик", "description": "Выполнил 5 заданий", "icon": "⭐"},
-                    "team_player": {"name": "Командный игрок", "description": "Получил фидбэк от коллеги", "icon": "👥"},
-                    "ml_master": {"name": "Мастер ML", "description": "Освоил машинное обучение", "icon": "🤖"}
-                };
-
                 let html = '';
-                for (const [badgeId, badge] of Object.entries(badges)) {
+                for (const [badgeId, badge] of Object.entries(BADGES)) {
                     const hasBadge = userData.badges.includes(badgeId);
 
                     html += `
@@ -991,10 +1827,11 @@ def index():
                         'career': 'Карьерная карта',
                         'quests': 'Квесты',
                         'ai': 'ИИ-помощник',
-                        'achievements': 'Достижения'
+                        'achievements': 'Достижения',
+                        'profile': 'Личный кабинет'
                     };
 
-                    document.getElementById('page-title').textContent = titles[sectionId] || 'Карьера на автопилоте';
+                    document.getElementById('page-title').textContent = titles[sectionId] || 'Внутренний рост';
                 });
             });
 
@@ -1057,7 +1894,7 @@ def index():
     '''
 
 
-# Остальные API endpoints остаются без изменений
+# API endpoints
 @app.route('/api/user')
 def get_user():
     return jsonify(get_user_data())
@@ -1073,15 +1910,42 @@ def get_quests():
     return jsonify(QUESTS)
 
 
+@app.route('/api/career_goals')
+def get_career_goals():
+    return jsonify(CAREER_GOALS)
+
+
 @app.route('/api/complete_quest/<int:quest_id>', methods=['POST'])
 def complete_quest(quest_id):
     user_data = get_user_data()
     quest = next((q for q in QUESTS if q['id'] == quest_id), None)
 
     if quest and quest_id not in user_data['completed_quests']:
+        # Обновляем основные показатели
         user_data['xp'] += quest['xp']
         user_data['coins'] += quest['coins']
         user_data['completed_quests'].append(quest_id)
+
+        # Обновляем статистику
+        user_data['total_quests_completed'] = len(user_data['completed_quests'])
+        user_data['total_xp_earned'] = user_data.get('total_xp_earned', 0) + quest['xp']
+        user_data['total_coins_earned'] = user_data.get('total_coins_earned', 0) + quest['coins']
+
+        # Обновляем статистику по типам квестов
+        quest_type = quest['type']
+        if quest_type in user_data['quests_by_type']:
+            user_data['quests_by_type'][quest_type] += 1
+        else:
+            user_data['quests_by_type'][quest_type] = 1
+
+        # Обновляем прогресс навыков
+        update_skills_progress(user_data, quest['skill'], quest['xp'])
+
+        # Обновляем последнюю активность
+        user_data['last_activity'] = datetime.now().strftime("%d.%m.%Y %H:%M")
+
+        # Увеличиваем streak (упрощенная логика)
+        user_data['learning_streak'] = user_data.get('learning_streak', 1) + 1
 
         # Проверка повышения уровня
         xp_needed = user_data['level'] * 100
@@ -1095,6 +1959,9 @@ def complete_quest(quest_id):
 
         if len(user_data['completed_quests']) >= 3 and 'active_learner' not in user_data['badges']:
             user_data['badges'].append('active_learner')
+
+        if len(user_data['completed_quests']) >= 5 and 'quest_master' not in user_data['badges']:
+            user_data['badges'].append('quest_master')
 
         session.modified = True
         return jsonify({'success': True, 'user_data': user_data})
@@ -1118,6 +1985,77 @@ def select_career():
     user_data['career_path'] = career_path
     session.modified = True
     return jsonify({'success': True})
+
+
+@app.route('/api/add_goal', methods=['POST'])
+def add_goal():
+    data = request.get_json()
+    goal_id = data.get('goal_id')
+    term = data.get('term')
+
+    user_data = get_user_data()
+
+    # Инициализируем структуру целей, если ее нет
+    if 'career_goals' not in user_data:
+        user_data['career_goals'] = {
+            'short_term': [],
+            'medium_term': [],
+            'long_term': []
+        }
+
+    # Проверяем, есть ли уже такая цель
+    existing_goal = next((g for g in user_data['career_goals'][term] if g['id'] == goal_id), None)
+
+    if not existing_goal:
+        # Находим цель в предопределенном списке
+        goal_to_add = None
+        for goal in CAREER_GOALS[term]:
+            if goal['id'] == goal_id:
+                goal_to_add = goal.copy()
+                goal_to_add['completed'] = False
+                break
+
+        if goal_to_add:
+            user_data['career_goals'][term].append(goal_to_add)
+            session.modified = True
+            return jsonify({'success': True, 'user_data': user_data})
+
+    return jsonify({'success': False})
+
+
+@app.route('/api/remove_goal', methods=['POST'])
+def remove_goal():
+    data = request.get_json()
+    goal_id = data.get('goal_id')
+    term = data.get('term')
+
+    user_data = get_user_data()
+
+    if 'career_goals' in user_data and term in user_data['career_goals']:
+        user_data['career_goals'][term] = [g for g in user_data['career_goals'][term] if g['id'] != goal_id]
+        session.modified = True
+        return jsonify({'success': True, 'user_data': user_data})
+
+    return jsonify({'success': False})
+
+
+@app.route('/api/toggle_goal', methods=['POST'])
+def toggle_goal():
+    data = request.get_json()
+    goal_id = data.get('goal_id')
+    term = data.get('term')
+    completed = data.get('completed', False)
+
+    user_data = get_user_data()
+
+    if 'career_goals' in user_data and term in user_data['career_goals']:
+        for goal in user_data['career_goals'][term]:
+            if goal['id'] == goal_id:
+                goal['completed'] = completed
+                session.modified = True
+                return jsonify({'success': True, 'user_data': user_data})
+
+    return jsonify({'success': False})
 
 
 if __name__ == '__main__':
